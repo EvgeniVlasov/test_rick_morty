@@ -41,17 +41,46 @@ mixin _$CharactersStore on _CharactersStore, Store {
     });
   }
 
-  late final _$getCharactersAsyncAction =
-      AsyncAction('_CharactersStore.getCharacters', context: context);
+  late final _$searchCharacterAsyncAction =
+      AsyncAction('_CharactersStore.searchCharacter', context: context);
 
   @override
-  Future<dynamic> getCharacters(bool isLoadMore) {
-    return _$getCharactersAsyncAction
-        .run(() => super.getCharacters(isLoadMore));
+  Future<dynamic> searchCharacter(String name) {
+    return _$searchCharacterAsyncAction.run(() => super.searchCharacter(name));
+  }
+
+  late final _$_getCharactersAsyncAction =
+      AsyncAction('_CharactersStore._getCharacters', context: context);
+
+  @override
+  Future<void> _getCharacters([String? name]) {
+    return _$_getCharactersAsyncAction.run(() => super._getCharacters(name));
   }
 
   late final _$_CharactersStoreActionController =
       ActionController(name: '_CharactersStore', context: context);
+
+  @override
+  Future<dynamic> getMoreCharacters() {
+    final _$actionInfo = _$_CharactersStoreActionController.startAction(
+        name: '_CharactersStore.getMoreCharacters');
+    try {
+      return super.getMoreCharacters();
+    } finally {
+      _$_CharactersStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  Future<dynamic> getInitialCharacters() {
+    final _$actionInfo = _$_CharactersStoreActionController.startAction(
+        name: '_CharactersStore.getInitialCharacters');
+    try {
+      return super.getInitialCharacters();
+    } finally {
+      _$_CharactersStoreActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic toCharacterDetailsPage(Character character) {

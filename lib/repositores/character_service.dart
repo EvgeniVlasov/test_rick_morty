@@ -11,8 +11,8 @@ class CharacterService {
   CharacterService(this._dioClient, this.appRoutes);
 
   Future<AppResponse<ObservableList<Character>?, Exception>> getCharacters(
-      [int? page]) async {
-    final result = await _dioClient.getCharacters(page);
+      [int? page, String? name]) async {
+    final result = await _dioClient.getCharacters(page, name);
     if (result.isSuccess) {
       return AppResponse.success(data: result.data?.listCharacters);
     } else {

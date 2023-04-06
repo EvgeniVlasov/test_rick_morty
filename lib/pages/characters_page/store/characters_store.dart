@@ -28,13 +28,35 @@ abstract class _CharactersStore with Store {
   Observable<StatusPage> statusPage = Observable(StatusPage.initial);
 
   @action
-  Future getCharacters(bool isLoadMore) async {
-    statusPage.value =
-        isLoadMore ? StatusPage.isLoadMore : StatusPage.isLoading;
-    final result = await _characterService.getCharacters(pageCounter);
+  Future searchCharacter(String name) async {
+    statusPage.value = StatusPage.isLoading;
+    characters.clear();
+    autorun((_) {
+      return _getCharacters(name);
+    }, delay: 2000);
+  }
+
+  @action
+  Future getMoreCharacters() {
+    statusPage.value = StatusPage.isLoadMore;
+    return _getCharacters();
+  }
+
+  @action
+  Future getInitialCharacters() {
+    statusPage.value = StatusPage.isLoading;
+    return _getCharacters();
+  }
+
+  @action
+  Future<void> _getCharacters([String? name]) async {
+    final result = await _characterService.getCharacters(
+        name == null ? pageCounter : null, name);
     if (result.isSuccess) {
       characters.addAll(result.data!);
-      pageCounter++;
+      if (name != null) {
+        pageCounter++;
+      }
       statusPage.value = StatusPage.isSuccess;
     } else {
       statusPage.value = StatusPage.isFailed;

@@ -27,10 +27,17 @@ class DioClient {
   static const _locationsMethod = 'location/';
 
   Future<AppResponse<CharacterResponse?, Exception>> getCharacters(
-      [int? page]) async {
+      [int? page, String? name]) async {
+    Map<String, dynamic>? params = {};
+    if (page != null) {
+      params.addAll({'page': page.toString()});
+    }
+    if (name != null) {
+      params.addAll({'name': name});
+    }
     try {
-      final response = await dio?.get(_charactersMethod,
-          queryParameters: page != null ? {'page': page.toString()} : null);
+      final response =
+          await dio?.get(_charactersMethod, queryParameters: params);
       return AppResponse.success(
           data: CharacterResponse.fromJson(response?.data));
     } on DioError catch (e) {

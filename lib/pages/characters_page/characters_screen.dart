@@ -12,7 +12,7 @@ import 'package:mobx/mobx.dart';
 @RoutePage()
 class CharactersScreen extends StatelessWidget {
   final controller = CharactersStore(getIt<CharacterService>())
-    ..getCharacters(false);
+    ..getInitialCharacters();
 
   CharactersScreen({Key? key}) : super(key: key);
 
@@ -37,7 +37,7 @@ class CharactersScreen extends StatelessWidget {
           });
         },
         child: CustomRefreshIndicator(
-          onRefresh: () => controller.getCharacters(true),
+          onRefresh: () => controller.getMoreCharacters(),
           trigger: IndicatorTrigger.bothEdges,
           builder: MaterialIndicatorDelegate(
               builder: (BuildContext context, IndicatorController controller) {
@@ -51,6 +51,19 @@ class CharactersScreen extends StatelessWidget {
                 children: [
                   Image.asset(
                     'images/logo.png',
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      onChanged: controller.searchCharacter,
+                      decoration: const InputDecoration(
+                        hintText: 'Filter by name',
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 1, color: Colors.grey), //<-- SEE HERE
+                        ),
+                      ),
+                    ),
                   ),
                   Observer(
                     builder: (_) {
