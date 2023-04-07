@@ -54,7 +54,7 @@ abstract class _CharactersStore with Store {
         name == null ? pageCounter : null, name);
     if (result.isSuccess) {
       characters.addAll(result.data!);
-      if (name != null) {
+      if (name == null) {
         pageCounter++;
       }
       statusPage.value = StatusPage.isSuccess;
