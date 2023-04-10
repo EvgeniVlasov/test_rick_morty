@@ -1,0 +1,88 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="io.flutter.plugins.firebase.messaging" >
+4
+5    <uses-sdk
+6        android:minSdkVersion="19"
+6-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml
+7        android:targetSdkVersion="19" />
+7-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml
+8
+9    <uses-permission android:name="android.permission.INTERNET" />
+9-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:4:5-67
+9-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:4:22-64
+10    <uses-permission android:name="android.permission.WAKE_LOCK" />
+10-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:5:5-68
+10-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:5:22-65
+11    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+11-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:6:5-79
+11-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:6:22-76
+12    <!-- Permissions options for the `notification` group -->
+13    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+13-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:8:5-77
+13-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:8:22-74
+14
+15    <application>
+15-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:9:5-40:19
+16        <service
+16-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:10:9-13:40
+17            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService"
+17-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:11:13-70
+18            android:exported="false"
+18-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:13:13-37
+19            android:permission="android.permission.BIND_JOB_SERVICE" />
+19-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:12:13-69
+20        <service
+20-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:14:9-20:19
+21            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingService"
+21-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:15:13-60
+22            android:exported="false" >
+22-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:16:13-37
+23            <intent-filter>
+23-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:17:13-19:29
+24                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+24-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:18:17-78
+24-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:18:25-75
+25            </intent-filter>
+26        </service>
+27
+28        <receiver
+28-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:22:9-29:20
+29            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver"
+29-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:23:13-61
+30            android:exported="true"
+30-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:24:13-36
+31            android:permission="com.google.android.c2dm.permission.SEND" >
+31-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:25:13-73
+32            <intent-filter>
+32-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:26:13-28:29
+33                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+33-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:27:17-81
+33-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:27:25-78
+34            </intent-filter>
+35        </receiver>
+36
+37        <service android:name="com.google.firebase.components.ComponentDiscoveryService" >
+37-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:30:9-34:19
+37-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:30:18-89
+38            <meta-data
+38-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:31:13-33:85
+39                android:name="com.google.firebase.components:io.flutter.plugins.firebase.messaging.FlutterFirebaseAppRegistrar"
+39-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:32:17-128
+40                android:value="com.google.firebase.components.ComponentRegistrar" />
+40-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:33:17-82
+41        </service>
+42
+43        <provider
+43-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:35:9-39:38
+44            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider"
+44-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:36:13-65
+45            android:authorities="${applicationId}.flutterfirebasemessaginginitprovider"
+45-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:37:13-88
+46            android:exported="false"
+46-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:38:13-37
+47            android:initOrder="99" /> <!-- Firebase = 100, using 99 to run after Firebase initialises (highest first) -->
+47-->/Users/evgenijvlasov/.pub-cache/hosted/pub.dev/firebase_messaging-14.4.0/android/src/main/AndroidManifest.xml:39:13-35
+48    </application>
+49
+50</manifest>

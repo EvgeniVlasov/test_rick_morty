@@ -1,0 +1,24 @@
+//пуши работают только на андроид, и чтобы заработали пуши на закрытом приложении консоли говорим: flutter run --release
+// не разобрался как кидать пуши с данными в интерфейсе Firebase, и поэтому убежал в postman
+// поэтому для теста, рекомендую им воспользоваться. Метод https://fcm.googleapis.com/fcm/send , тип Post
+// в хедорах: Contant-Type : application/json   Authorization: key=(ко мне в личку за ключиком проекта FCM)
+//тело реквеста:
+{
+  "to": "Сюда текущий токен FCM",
+  "notification": {
+    "title": "testTitle",
+    "body": "testBody"
+  },
+  "data": {
+    "click_action": "FLUTTER_NOTIFICATION_CLICK",
+    "notification_lazy": {
+      // те самые данные, которые кешируются и показываются на экране списка персонажей
+      "title": "HelloWorld",
+      "subtitle": "HelloWorlds"
+    },
+    "routes": {
+      // роутинг (true/false), при тру значении при нажатии пуша, приложение открывается сразу со списком локаций
+      "locations": true
+    }
+  }
+}

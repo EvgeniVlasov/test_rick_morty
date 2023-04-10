@@ -43,6 +43,10 @@ dependencies:
   flutter_svg: ^2.0.4
   mobx_widget: ^0.5.1
   custom_refresh_indicator: ^2.0.1
+  firebase_messaging: ^14.4.0
+  firebase_core: ^2.9.0
+  overlay_support: ^2.1.0
+  shared_preferences: ^2.1.0
 
 dev_dependencies:
   flutter_test:

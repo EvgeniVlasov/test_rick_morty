@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1037345631916",
+    "project_id": "app-test-e891d",
+    "storage_bucket": "app-test-e891d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037345631916:android:9b100825a018aed8147909",
+        "android_client_info": {
+          "package_name": "com.example.rick_morty_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037345631916-3r7gje3pgjdb8sen1b1q5i1vj8ht3svt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa1IPtrVlyRmFU3sStDMFbncksb0DdFLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037345631916-3r7gje3pgjdb8sen1b1q5i1vj8ht3svt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1037345631916-2mg9i550cpa0t2118ha699ehn4mf9eov.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rickMortyTest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

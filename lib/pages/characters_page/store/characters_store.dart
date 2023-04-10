@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:rick_morty_test/models/character_notification_lazy.dart';
 import 'package:rick_morty_test/models/characters/character.dart';
 import 'package:rick_morty_test/pages/character_details_page/store/character_details_store.dart';
 import 'package:rick_morty_test/repositores/character_service.dart';
@@ -6,7 +7,14 @@ import 'package:rick_morty_test/routes/app_routes.gr.dart';
 
 part 'characters_store.g.dart';
 
-enum StatusPage { isFailed, initial, isLoading, isSuccess, isLoadMore }
+enum StatusPage {
+  isFailed,
+  initial,
+  isLoading,
+  isSuccess,
+  isLoadMore,
+  showNotificationMessage
+}
 
 class CharactersStore = _CharactersStore with _$CharactersStore;
 
@@ -27,6 +35,15 @@ abstract class _CharactersStore with Store {
   @observable
   Observable<StatusPage> statusPage = Observable(StatusPage.initial);
 
+  NotificationCharacterLazy? get contentNotificationMessage =>
+      _characterService.contentMessageNotification;
+
+  @observable
+  Observable<String> titleMessage = Observable('');
+
+  @observable
+  Observable<String> subtitleMessage = Observable('');
+
   @action
   Future searchCharacter(String name) async {
     statusPage.value = StatusPage.isLoading;
@@ -43,9 +60,14 @@ abstract class _CharactersStore with Store {
   }
 
   @action
-  Future getInitialCharacters() {
+  Future<void> getInitialCharacters() async {
     statusPage.value = StatusPage.isLoading;
-    return _getCharacters();
+    await _getCharacters();
+    if (contentNotificationMessage != null) {
+      titleMessage.value = contentNotificationMessage!.title!;
+      subtitleMessage.value = contentNotificationMessage!.subtitle!;
+      statusPage.value = StatusPage.showNotificationMessage;
+    }
   }
 
   @action
@@ -61,6 +83,12 @@ abstract class _CharactersStore with Store {
     } else {
       statusPage.value = StatusPage.isFailed;
     }
+  }
+
+  @action
+  Future<void> removeDataMessageNotification() {
+    _characterService.appRoutes.pop();
+    return _characterService.removeDataNotification();
   }
 
   @action

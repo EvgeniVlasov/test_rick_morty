@@ -34,6 +34,52 @@ class CharactersScreen extends StatelessWidget {
 
               messenger.showSnackBar(const SnackBar(content: Text('Error')));
             }
+            if (result == StatusPage.showNotificationMessage) {
+              showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
+                    ),
+                  ),
+                  builder: (context) {
+                    return Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 30.0),
+                          child: Icon(
+                            Icons.rocket_launch,
+                            size: 100,
+                            color: Colors.red,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 30.0),
+                          child: Text(
+                            controller.titleMessage.value,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            controller.subtitleMessage.value,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: ElevatedButton(
+                              onPressed: () =>
+                                  controller.removeDataMessageNotification(),
+                              child: const Text('Удалить уведомление')),
+                        )
+                      ],
+                    );
+                  });
+            }
           });
         },
         child: CustomRefreshIndicator(

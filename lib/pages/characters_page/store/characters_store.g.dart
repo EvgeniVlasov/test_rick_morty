@@ -41,12 +41,53 @@ mixin _$CharactersStore on _CharactersStore, Store {
     });
   }
 
+  late final _$titleMessageAtom =
+      Atom(name: '_CharactersStore.titleMessage', context: context);
+
+  @override
+  Observable<String> get titleMessage {
+    _$titleMessageAtom.reportRead();
+    return super.titleMessage;
+  }
+
+  @override
+  set titleMessage(Observable<String> value) {
+    _$titleMessageAtom.reportWrite(value, super.titleMessage, () {
+      super.titleMessage = value;
+    });
+  }
+
+  late final _$subtitleMessageAtom =
+      Atom(name: '_CharactersStore.subtitleMessage', context: context);
+
+  @override
+  Observable<String> get subtitleMessage {
+    _$subtitleMessageAtom.reportRead();
+    return super.subtitleMessage;
+  }
+
+  @override
+  set subtitleMessage(Observable<String> value) {
+    _$subtitleMessageAtom.reportWrite(value, super.subtitleMessage, () {
+      super.subtitleMessage = value;
+    });
+  }
+
   late final _$searchCharacterAsyncAction =
       AsyncAction('_CharactersStore.searchCharacter', context: context);
 
   @override
   Future<dynamic> searchCharacter(String name) {
     return _$searchCharacterAsyncAction.run(() => super.searchCharacter(name));
+  }
+
+  late final _$getInitialCharactersAsyncAction =
+      AsyncAction('_CharactersStore.getInitialCharacters', context: context);
+
+  @override
+  Future<void> getInitialCharacters() {
+    return _$getInitialCharactersAsyncAction
+        .run(() => super.getInitialCharacters());
   }
 
   late final _$_getCharactersAsyncAction =
@@ -72,11 +113,11 @@ mixin _$CharactersStore on _CharactersStore, Store {
   }
 
   @override
-  Future<dynamic> getInitialCharacters() {
+  Future<void> removeDataMessageNotification() {
     final _$actionInfo = _$_CharactersStoreActionController.startAction(
-        name: '_CharactersStore.getInitialCharacters');
+        name: '_CharactersStore.removeDataMessageNotification');
     try {
-      return super.getInitialCharacters();
+      return super.removeDataMessageNotification();
     } finally {
       _$_CharactersStoreActionController.endAction(_$actionInfo);
     }
@@ -97,7 +138,9 @@ mixin _$CharactersStore on _CharactersStore, Store {
   String toString() {
     return '''
 characters: ${characters},
-statusPage: ${statusPage}
+statusPage: ${statusPage},
+titleMessage: ${titleMessage},
+subtitleMessage: ${subtitleMessage}
     ''';
   }
 }
