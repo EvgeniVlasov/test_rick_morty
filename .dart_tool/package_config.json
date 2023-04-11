@@ -392,6 +392,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "mockito",
+      "rootUri": "file:///Users/evgenijvlasov/.pub-cache/hosted/pub.dev/mockito-5.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "overlay_support",
       "rootUri": "file:///Users/evgenijvlasov/.pub-cache/hosted/pub.dev/overlay_support-2.1.0",
       "packageUri": "lib/",
@@ -668,7 +674,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-04-07T08:08:20.723914Z",
+  "generated": "2023-04-10T15:20:46.304436Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }
