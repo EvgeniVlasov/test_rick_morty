@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key('scaffold_key'),
       appBar: AppBar(
         title: SvgPicture.asset(
           'images/rick_icon.svg',
@@ -28,6 +29,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
+                key: const Key('characters_btn'),
                   onPressed: _controller.toCharactersPage,
                   child: Text(
                     'Characters',
@@ -53,5 +55,22 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class CharactersButton extends StatelessWidget {
+  final VoidCallback onPress;
+
+  const CharactersButton({Key? key, required this.onPress}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        key: const Key('characters_btn'),
+        onPressed: onPress,
+        child: Text(
+          'Characters',
+          style: Theme.of(context).textTheme.titleMedium,
+        ));
   }
 }

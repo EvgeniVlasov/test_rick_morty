@@ -5,9 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rick_morty_test/main.dart';
 import 'package:rick_morty_test/models/characters/character.dart';
 import 'package:rick_morty_test/pages/characters_page/store/characters_store.dart';
-import 'package:rick_morty_test/repositores/character_service.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:rick_morty_test/repositores/character_service.dart';
+import 'package:rick_morty_test/repositores/character_service_prod.dart';
 
 @RoutePage()
 class CharactersScreen extends StatelessWidget {
@@ -19,6 +20,7 @@ class CharactersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key('scaffold_characters_key'),
       appBar: AppBar(
         title: SvgPicture.asset(
           'images/rick_icon.svg',
@@ -72,8 +74,8 @@ class CharactersScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: ElevatedButton(
-                              onPressed: () =>
-                                  controller.removeDataMessageNotification(),
+                              onPressed:
+                                  controller.removeDataMessageNotification,
                               child: const Text('Удалить уведомление')),
                         )
                       ],
@@ -83,7 +85,7 @@ class CharactersScreen extends StatelessWidget {
           });
         },
         child: CustomRefreshIndicator(
-          onRefresh: () => controller.getMoreCharacters(),
+          onRefresh: controller.getMoreCharacters,
           trigger: IndicatorTrigger.bothEdges,
           builder: MaterialIndicatorDelegate(
               builder: (BuildContext context, IndicatorController controller) {
@@ -112,21 +114,26 @@ class CharactersScreen extends StatelessWidget {
                     ),
                   ),
                   Observer(
-                    builder: (_) {
+                    builder: (context) {
                       if (controller.statusPage.value == StatusPage.isLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
-                      return Column(
-                        children: controller.characters
-                            .map((character) => CharacterItem(
-                                  character: character,
-                                  onPress: () => controller
-                                      .toCharacterDetailsPage(character),
-                                ))
-                            .toList(),
-                      );
+                      if(controller.statusPage.value == StatusPage.isSuccess){
+                        return Column(
+                          key: const Key('characters_key'),
+                          children: controller.characters
+                              .map((character) => CharacterItem(
+                            key: const Key('character_key'),
+                            character: character,
+                            onPress: () => controller
+                                .toCharacterDetailsPage(character),
+                          ))
+                              .toList(),
+                        );
+                      }
+                      return Container();
                     },
                   ),
                 ],

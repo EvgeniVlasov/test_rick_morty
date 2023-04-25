@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:rick_morty_test/models/character_notification_lazy.dart';
 import 'package:rick_morty_test/models/characters/character.dart';
 import 'package:rick_morty_test/pages/character_details_page/store/character_details_store.dart';
+import 'package:rick_morty_test/providers/app_response.dart';
 import 'package:rick_morty_test/repositores/character_service.dart';
 import 'package:rick_morty_test/routes/app_routes.gr.dart';
 
@@ -30,7 +33,7 @@ abstract class _CharactersStore with Store {
   @observable
   ObservableList<Character> characters = ObservableList.of(<Character>[]);
 
-  int pageCounter = 1;
+  int? pageCounter;
 
   @observable
   Observable<StatusPage> statusPage = Observable(StatusPage.initial);
@@ -48,37 +51,28 @@ abstract class _CharactersStore with Store {
   Future searchCharacter(String name) async {
     statusPage.value = StatusPage.isLoading;
     characters.clear();
-    autorun((_) {
-      return _getCharacters(name);
-    }, delay: 2000);
+    autorun(
+      (_) async {
+        final result = await _getCharacters(name);
+        if (result.isSuccess) {
+          statusPage.reportWrite(StatusPage.isSuccess, StatusPage.isLoading,
+              () {
+            statusPage.value = StatusPage.isSuccess;
+          });
+        } else {
+          statusPage.value = StatusPage.isFailed;
+        }
+      },
+      delay: 2000,
+    );
   }
 
   @action
-  Future getMoreCharacters() {
+  Future getMoreCharacters() async {
     statusPage.value = StatusPage.isLoadMore;
-    return _getCharacters();
-  }
-
-  @action
-  Future<void> getInitialCharacters() async {
-    statusPage.value = StatusPage.isLoading;
-    await _getCharacters();
-    if (contentNotificationMessage != null) {
-      titleMessage.value = contentNotificationMessage!.title!;
-      subtitleMessage.value = contentNotificationMessage!.subtitle!;
-      statusPage.value = StatusPage.showNotificationMessage;
-    }
-  }
-
-  @action
-  Future<void> _getCharacters([String? name]) async {
-    final result = await _characterService.getCharacters(
-        name == null ? pageCounter : null, name);
+    final result = await _getCharacters();
     if (result.isSuccess) {
-      characters.addAll(result.data!);
-      if (name == null) {
-        pageCounter++;
-      }
+      pageCounter = pageCounter != null ? pageCounter! + 1 : 2;
       statusPage.value = StatusPage.isSuccess;
     } else {
       statusPage.value = StatusPage.isFailed;
@@ -86,8 +80,37 @@ abstract class _CharactersStore with Store {
   }
 
   @action
+  Future<void> getInitialCharacters() async {
+    statusPage.value = StatusPage.isLoading;
+    final result = await _getCharacters();
+    if (result.isSuccess) {
+      if (contentNotificationMessage != null) {
+        titleMessage.value = contentNotificationMessage!.title!;
+        subtitleMessage.value = contentNotificationMessage!.subtitle!;
+        statusPage.value = StatusPage.showNotificationMessage;
+      }
+      pageCounter = 2;
+      statusPage.value = StatusPage.isSuccess;
+    } else {
+      statusPage.value = StatusPage.isFailed;
+    }
+  }
+
+  @action
+  Future<AppResponse<bool, Exception>> _getCharacters([String? name]) async {
+    final result = await _characterService.getCharacters(
+        name == null ? pageCounter : null, name);
+    if (result.isSuccess) {
+      characters.addAll(result.data!);
+      return AppResponse.success();
+    } else {
+      return AppResponse.error(error: result.error);
+    }
+  }
+
+  @action
   Future<void> removeDataMessageNotification() {
-    _characterService.appRoutes.pop();
+    _characterService.appRoutes?.pop();
     return _characterService.removeDataNotification();
   }
 
@@ -95,6 +118,6 @@ abstract class _CharactersStore with Store {
   toCharacterDetailsPage(Character character) {
     _characterDetailsStore?.character = character;
     return _characterService.appRoutes
-        .push(CharacterDetailsRoute(controller: _characterDetailsStore!));
+        ?.push(CharacterDetailsRoute(controller: _characterDetailsStore!));
   }
 }

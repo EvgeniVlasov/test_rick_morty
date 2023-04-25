@@ -81,6 +81,14 @@ mixin _$CharactersStore on _CharactersStore, Store {
     return _$searchCharacterAsyncAction.run(() => super.searchCharacter(name));
   }
 
+  late final _$getMoreCharactersAsyncAction =
+      AsyncAction('_CharactersStore.getMoreCharacters', context: context);
+
+  @override
+  Future<dynamic> getMoreCharacters() {
+    return _$getMoreCharactersAsyncAction.run(() => super.getMoreCharacters());
+  }
+
   late final _$getInitialCharactersAsyncAction =
       AsyncAction('_CharactersStore.getInitialCharacters', context: context);
 
@@ -94,23 +102,12 @@ mixin _$CharactersStore on _CharactersStore, Store {
       AsyncAction('_CharactersStore._getCharacters', context: context);
 
   @override
-  Future<void> _getCharacters([String? name]) {
+  Future<AppResponse<bool, Exception>> _getCharacters([String? name]) {
     return _$_getCharactersAsyncAction.run(() => super._getCharacters(name));
   }
 
   late final _$_CharactersStoreActionController =
       ActionController(name: '_CharactersStore', context: context);
-
-  @override
-  Future<dynamic> getMoreCharacters() {
-    final _$actionInfo = _$_CharactersStoreActionController.startAction(
-        name: '_CharactersStore.getMoreCharacters');
-    try {
-      return super.getMoreCharacters();
-    } finally {
-      _$_CharactersStoreActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   Future<void> removeDataMessageNotification() {

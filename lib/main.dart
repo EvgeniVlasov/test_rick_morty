@@ -6,6 +6,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:rick_morty_test/providers/dio_client.dart';
 import 'package:rick_morty_test/providers/storage_provider.dart';
 import 'package:rick_morty_test/repositores/character_service.dart';
+import 'package:rick_morty_test/repositores/character_service_prod.dart';
 import 'package:rick_morty_test/repositores/location_service.dart';
 import 'package:rick_morty_test/routes/app_routes.dart';
 import 'dart:io';
@@ -28,7 +29,7 @@ void main() async {
   final appRoutes = getIt<AppRoutes>();
   await FirebaseConfig.firebaseInitializeApp(storageProvider);
   getIt.registerSingleton<CharacterService>(
-      CharacterService(dioClient, appRoutes, storageProvider));
+      CharacterServiceProd(dioClient, appRoutes, storageProvider));
   getIt.registerSingleton<LocationService>(
       LocationService(dioClient, appRoutes));
   runApp(OverlaySupport.global(
